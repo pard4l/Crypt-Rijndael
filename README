@@ -1,0 +1,69 @@
+NAME
+    Crypt::Rijndael - Crypt::CBC compliant Rijndael encryption module
+
+SYNOPSIS
+     use Crypt::Rijndael;
+
+     # keysize() is 32, but 24 and 16 are also possible
+     # blocksize() is 16
+
+     $cipher = new Crypt::Rijndael "a" x 32, Crypt::Rijndael::MODE_CBC;
+
+     $crypted = $cipher->encrypt($plaintext);
+     # - OR -
+     $plaintext = $cipher->decrypt($crypted);
+
+DESCRIPTION
+    This module implements the Rijndael cipher, which has just been selected
+    as the Advanced Encryption Standard.
+
+    keysize
+        Returns the keysize, which is 32 (bytes). The Rijndael cipher
+        actually supports keylengths of 16, 24 or 32 bytes, but there is no
+        way to communicate this to `Crypt::CBC'.
+
+    blocksize
+        The blocksize for Twofish2 is 16 bytes (128 bits), although the
+        algorithm actually supports any blocksize that is any multiple of
+        four bytes.  128 bits, is however, the AES-specified block size,
+        so this is all we support for now.
+
+    $cipher = new $key [, $mode]
+        Create a new `Crypt::Rijndael' cipher object with the given key
+        (which must be 128, 192 or 256 bits long). The additional `$mode'
+        argument is the encryption mode, either `MODE_ECB' (electronic
+        cookbook mode, the default) or `MODE_CBC' (cipher block chaining,
+        the same that `Crypt::CBC' does).
+
+        ECB mode is very insecure (read a book on cryptography if you don't
+        know why!), so you should probably use CBC mode.
+
+    $cipher->encrypt($data)
+        Encrypt data. The size of `$data' must be a multiple of `blocksize'
+        (16 bytes), otherwise this function will croak. Apart from that, it
+        can be of (almost) any length.
+
+    $cipher->decrypt($data)
+        The pendant to `encrypt' in that it *de*crypts data again.
+
+SEE ALSO
+    the Crypt::CBC manpage
+
+BUGS
+    Should EXPORT or EXPORT_OK the MODE constants.
+
+    There should be a way to access initial IV contents :(
+
+    There may be endian issues involved in this particular implementation of
+    Rijndael.  I have not tested my implementation on big-endian architectures
+    but it is my belief that at the very least, this code running on big
+    endian architectures will be interoperable with the same code running
+    on other big endian architectures, but will not produce the correct
+    results vis-a-vis the Rijndael testsuites.  I do not have access to a
+    big-endian machine and thus have no way of testing this assertion.
+
+AUTHOR
+    Rafael R. Sevilla <dido@pacific.net.ph>
+
+    The Rijndael Algorithm was developed by Vincent Rijmen and Joan Daemen,
+    and has been selected as the US Government's Advanced Encryption Standard.
