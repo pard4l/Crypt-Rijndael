@@ -12,10 +12,10 @@ static STRLEN nolen_na;
 #endif
 
 #include "rijndael.h"
-#include "_rijndael.c"
 
 typedef struct cryptstate {
   RIJNDAEL_context ctx;
+  UINT8 iv[RIJNDAEL_BLOCKSIZE];
   int mode;
 } *Crypt__Rijndael;
 
@@ -34,6 +34,9 @@ BOOT:
   newCONSTSUB (stash, "blocksize", newSViv (16));
   newCONSTSUB (stash, "MODE_ECB",  newSViv (MODE_ECB));
   newCONSTSUB (stash, "MODE_CBC",  newSViv (MODE_CBC));
+  newCONSTSUB (stash, "MODE_CFB",  newSViv (MODE_CFB));
+  newCONSTSUB (stash, "MODE_OFB",  newSViv (MODE_OFB));
+  newCONSTSUB (stash, "MODE_CTR",  newSViv (MODE_CTR));
 #endif
 }
 
@@ -67,6 +70,27 @@ MODE_CBC(...)
   OUTPUT:
      RETVAL
 
+int
+MODE_CFB(...)
+  CODE:
+     RETVAL=MODE_CFB;
+  OUTPUT:
+     RETVAL
+
+int
+MODE_OFB(...)
+  CODE:
+     RETVAL=MODE_OFB;
+  OUTPUT:
+     RETVAL
+
+int
+MODE_CTR(...)
+  CODE:
+     RETVAL=MODE_CTR;
+  OUTPUT:
+     RETVAL
+
 #endif
 
 
@@ -86,11 +110,13 @@ new(class, key, mode=MODE_ECB)
 
           if (keysize != 16 && keysize != 24 && keysize != 32)
             croak ("wrong key length: key must be 128, 192 or 256 bits long");
-          if (mode != MODE_ECB && mode != MODE_CBC)
-            croak ("illegal mode: mode must be MODE_ECB or MODE_CBC");
+          if (mode != MODE_ECB && mode != MODE_CBC && mode != MODE_CFB && mode != MODE_OFB && mode != MODE_CTR)
+            croak ("illegal mode, see documentation for valid modes");
 
           Newz(0, RETVAL, 1, struct cryptstate);
 	  RETVAL->ctx.mode = RETVAL->mode = mode;
+	  /* set the IV to zero on initialization */
+	  memset(RETVAL->iv, 0, RIJNDAEL_BLOCKSIZE);
           rijndael_setup(&RETVAL->ctx, keysize, SvPV_nolen(key));
 
 	}
@@ -98,8 +124,22 @@ new(class, key, mode=MODE_ECB)
         RETVAL
 
 SV *
+set_iv(self, data)
+	Crypt::Rijndael self
+	SV *	data
+
+	CODE:
+	{
+	  SV *res;
+	  STRLEN size;
+	  void *rawbytes = SvPV(data,size);
+
+	  memcpy(self->iv, rawbytes, RIJNDAEL_BLOCKSIZE);
+	}
+
+SV *
 encrypt(self, data)
- 	Crypt::Rijndael self
+        Crypt::Rijndael self
         SV *	data
         ALIAS:
         	decrypt = 1
@@ -117,12 +157,13 @@ encrypt(self, data)
 	    SvPOK_only (RETVAL);
 	    SvCUR_set (RETVAL, size);
 	    (ix ? block_decrypt : block_encrypt)
-	      (&self->ctx, rawbytes, size, SvPV_nolen(RETVAL));
+	      (&self->ctx, rawbytes, size, SvPV_nolen(RETVAL), self->iv);
           } else
             RETVAL = newSVpv ("", 0);
         }
 	OUTPUT:
         RETVAL
+
 
 void
 DESTROY(self)

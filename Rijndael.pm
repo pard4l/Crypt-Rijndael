@@ -11,6 +11,7 @@ Crypt::Rijndael - Crypt::CBC compliant Rijndael encryption module
 
  $cipher = new Crypt::Rijndael "a" x 32, Crypt::Rijndael::MODE_CBC;
 
+ $cipher->set_iv($iv);
  $crypted = $cipher->encrypt($plaintext);
  # - OR -
  $plaintext = $cipher->decrypt($crypted);
@@ -44,18 +45,24 @@ way to communicate this to C<Crypt::CBC>.
 The blocksize for Rijndael is 16 bytes (128 bits), although the
 algorithm actually supports any blocksize that is any multiple of
 our bytes.  128 bits, is however, the AES-specified block size,
-so this is all we support for now.
+so this is all we support.
 
 =item $cipher = new $key [, $mode]
 
 Create a new C<Crypt::Rijndael> cipher object with the given key
 (which must be 128, 192 or 256 bits long). The additional C<$mode>
 argument is the encryption mode, either C<MODE_ECB> (electronic
-codebook mode, the default) or C<MODE_CBC> (cipher block chaining,
-the same that C<Crypt::CBC> does).
+codebook mode, the default), C<MODE_CBC> (cipher block chaining, the
+same that C<Crypt::CBC> does), C<MODE_CFB> (128-bit cipher feedback),
+C<MODE_OFB> (128-bit output feedback), or C<MODE_CTR> (counter mode).
 
 ECB mode is very insecure (read a book on cryptography if you dont
 know why!), so you should probably use CBC mode.
+
+=item $cipher->set_iv($iv)
+
+This allows you to change the initial value vector used by the
+chaining modes.  It is not relevant for ECB mode.
 
 =item $cipher->encrypt($data)
 
@@ -71,25 +78,15 @@ Decrypts C<$data>.
 
 =head1 SEE ALSO
 
-  L<Crypt::CBC>
+  L<Crypt::CBC>, http://www.csrc.nist.gov/encryption/aes/
 
 =head1 BUGS
 
 Should EXPORT or EXPORT_OK the MODE constants.
 
-There should be a way to access initial IV contents :(
-
-There may be endian issues involved in this particular implementation of
-Rijndael.  I have not tested my implementation on big-endian architectures
-but it is my belief that at the very least, this code running on big
-endian architectures will be interoperable with the same code running
-on other big endian architectures, but will not produce the correct
-results vis-a-vis the Rijndael testsuites.  I do not have access to a
-big-endian machine and thus have no way of testing this assertion.
-
 =head1 AUTHOR
 
- Rafael R. Sevilla <dido@pacific.net.ph>
+ Rafael R. Sevilla <sevillar@team.ph.inter.net>
 
  The Rijndael Algorithm was developed by Vincent Rijmen and Joan Daemen,
  and has been selected as the US Government's Advanced Encryption Standard.

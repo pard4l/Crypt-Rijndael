@@ -7,6 +7,7 @@ WriteMakefile(
 	            SUFFIX	=> '.gz',
 	           },
     NAME => "Crypt::Rijndael",
+    OBJECT => q[_rijndael$(OBJ_EXT) Rijndael$(OBJ_EXT)],
     VERSION_FROM => "Rijndael.pm",
 );
 
