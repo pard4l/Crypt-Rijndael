@@ -28,7 +28,7 @@ package Crypt::Rijndael;
 
 require DynaLoader;
 
-$VERSION = 0.01;
+$VERSION = 0.04;
 @ISA = qw/DynaLoader/;
 
 bootstrap Crypt::Rijndael $VERSION;
@@ -93,3 +93,8 @@ big-endian machine and thus have no way of testing this assertion.
 
  The Rijndael Algorithm was developed by Vincent Rijmen and Joan Daemen,
  and has been selected as the US Government's Advanced Encryption Standard.
+
+=cut
+
+1;
+

@@ -1,69 +1,47 @@
-NAME
-    Crypt::Rijndael - Crypt::CBC compliant Rijndael encryption module
+This is Crypt::Rijndael version 0.04, an XS-based implementation of
+the newly-selected Advanced Encryption Standard algorithm Rijndael,
+designed by Joan Daemen and Vincent Rijmen.
 
-SYNOPSIS
-     use Crypt::Rijndael;
+Installing Crypt::Rijndael
+--------------------------
 
-     # keysize() is 32, but 24 and 16 are also possible
-     # blocksize() is 16
+The usual:
 
-     $cipher = new Crypt::Rijndael "a" x 32, Crypt::Rijndael::MODE_CBC;
+	1. perl Makefile.PL
+	2. make
+	3. make test
+	4. make install
 
-     $crypted = $cipher->encrypt($plaintext);
-     # - OR -
-     $plaintext = $cipher->decrypt($crypted);
+Notes
+-----
 
-DESCRIPTION
-    This module implements the Rijndael cipher, which has just been selected
-    as the Advanced Encryption Standard.
+This module has been tested successfully on:
 
-    keysize
-        Returns the keysize, which is 32 (bytes). The Rijndael cipher
-        actually supports keylengths of 16, 24 or 32 bytes, but there is no
-        way to communicate this to `Crypt::CBC'.
+Linux 2.2.x (x86)
+Linux 2.4.x (x86)
+Win95/VC++ (x86)
 
-    blocksize
-        The blocksize for Twofish2 is 16 bytes (128 bits), although the
-        algorithm actually supports any blocksize that is any multiple of
-        four bytes.  128 bits, is however, the AES-specified block size,
-        so this is all we support for now.
+Perl 5.005_03, 5.004_02
 
-    $cipher = new $key [, $mode]
-        Create a new `Crypt::Rijndael' cipher object with the given key
-        (which must be 128, 192 or 256 bits long). The additional `$mode'
-        argument is the encryption mode, either `MODE_ECB' (electronic
-        cookbook mode, the default) or `MODE_CBC' (cipher block chaining,
-        the same that `Crypt::CBC' does).
+Kindly report any other successful platform/architecture successes.
 
-        ECB mode is very insecure (read a book on cryptography if you don't
-        know why!), so you should probably use CBC mode.
+Caveat Emptor: Note that this has not been tested on anything but
+x86, so there may be endian issues.
 
-    $cipher->encrypt($data)
-        Encrypt data. The size of `$data' must be a multiple of `blocksize'
-        (16 bytes), otherwise this function will croak. Apart from that, it
-        can be of (almost) any length.
+Tests have been added to reflect tests given in the preliminary draft
+FIPS released by NIST on March 2, 2001.
 
-    $cipher->decrypt($data)
-        The pendant to `encrypt' in that it *de*crypts data again.
+Thanks to Mike Blazer <blazer@mail.nevalink.ru> for fixes involving
+Win32 and older Perl version compatibility.
 
-SEE ALSO
-    the Crypt::CBC manpage
+For more information on Rijndael, see NIST's page on the Advanced
+Encryption Standard:
 
-BUGS
-    Should EXPORT or EXPORT_OK the MODE constants.
+http://csrc.nist.gov/encryption/aes/
 
-    There should be a way to access initial IV contents :(
+or the original Rijndael page at
 
-    There may be endian issues involved in this particular implementation of
-    Rijndael.  I have not tested my implementation on big-endian architectures
-    but it is my belief that at the very least, this code running on big
-    endian architectures will be interoperable with the same code running
-    on other big endian architectures, but will not produce the correct
-    results vis-a-vis the Rijndael testsuites.  I do not have access to a
-    big-endian machine and thus have no way of testing this assertion.
+http://www.esat.kuleuven.ac.be/~rijmen/rijndael/
 
-AUTHOR
-    Rafael R. Sevilla <dido@pacific.net.ph>
-
-    The Rijndael Algorithm was developed by Vincent Rijmen and Joan Daemen,
-    and has been selected as the US Government's Advanced Encryption Standard.
+Rafael R. Sevilla - Inter.Net Philippines
+<dido@pacific.net.ph>
