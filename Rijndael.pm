@@ -9,11 +9,11 @@ Crypt::Rijndael - Crypt::CBC compliant Rijndael encryption module
  # keysize() is 32, but 24 and 16 are also possible
  # blocksize() is 16
 
- $cipher = new Crypt::Rijndael "a" x 32, Crypt::Rijndael::MODE_CBC;
+ $cipher = Crypt::Rijndael->new( "a" x 32, Crypt::Rijndael::MODE_CBC );
 
  $cipher->set_iv($iv);
  $crypted = $cipher->encrypt($plaintext);
- # - OR -
+ 	# - OR -
  $plaintext = $cipher->decrypt($crypted);
 
 =head1 DESCRIPTION
@@ -29,7 +29,7 @@ package Crypt::Rijndael;
 
 require DynaLoader;
 
-$VERSION = '0.06_06';
+$VERSION = '0.06_07';
 @ISA = qw/DynaLoader/;
 
 bootstrap Crypt::Rijndael $VERSION;
