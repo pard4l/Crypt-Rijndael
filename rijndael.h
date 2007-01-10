@@ -34,13 +34,15 @@
 	#undef _CRYPT_RIJNDAEL_H_TYPES
 #endif
 
+/* Solaris has sys/types.h, but doesn't act like everyone else */
 #if defined( __sun__ )
 	#define _CRYPT_RIJNDAEL_H_TYPES
 	typedef uint32_t UINT32;
 	typedef uint8_t UINT8;
 #endif
 
-#if ! defined(__sun__) && ( defined(_SYS_TYPES_H) || defined(_SYS_TYPES_H_) )   /* I expect this to be the usual case */
+/* I expect this to be the usual case */
+#if ! defined(__sun__) && ( defined(_SYS_TYPES_H) || defined(_SYS_TYPES_H_) )   
 	#define _CRYPT_RIJNDAEL_H_TYPES
 	typedef __uint32_t UINT32;
 	typedef __uint8_t  UINT8;
@@ -54,7 +56,7 @@
 
 #if defined(__MINGW32__) && ! defined(_CRYPT_RIJNDAEL_H_TYPES)
 	#define _CRYPT_RIJNDAEL_H_TYPES
-	typedef unsigned long UINT32;
+	typedef unsigned int UINT32;
 	typedef unsigned char UINT8;
 #endif
 

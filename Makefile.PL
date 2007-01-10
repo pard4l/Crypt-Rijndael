@@ -1,4 +1,4 @@
-# $Id: Makefile.PL,v 1.3 2006/11/12 22:14:42 comdog Exp $
+# $Id: Makefile.PL,v 1.5 2007/01/10 06:33:30 comdog Exp $
 
 use ExtUtils::MakeMaker;
 
@@ -7,6 +7,7 @@ eval "use Test::Manifest 1.14";
 WriteMakefile(
 	NAME           => "Crypt::Rijndael",
     VERSION_FROM   => "Rijndael.pm",
+	'LICENSE'       => 'gpl',
 	
 	'PREREQ_PM'    => { 
 			'Test::More'         => '0',
