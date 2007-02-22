@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Crypt-Rijndael
-version:             1.02
+version:             1.03
 abstract:            ~
 license:             gpl
 generated_by:        ExtUtils::MakeMaker version 6.31
@@ -10,3 +10,5 @@ requires:
 meta-spec:
     url:     http://module-build.sourceforge.net/META-spec-v1.2.html
     version: 1.2
+author:
+    - Rafael R. Sevilla (maintained by brian d foy <bdfoy@cpan.org>)

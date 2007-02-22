@@ -5,12 +5,14 @@ examples/README
 LICENSE
 Makefile.PL
 MANIFEST
-META.yml
 NEWS
 README
 rijndael.h
 Rijndael.pm
 Rijndael.xs
 t/00_load.t
+t/pod.t
+t/pod_coverage.t
 t/test_manifest
 typemap
+META.yml                                 Module meta-data (added by MakeMaker)
