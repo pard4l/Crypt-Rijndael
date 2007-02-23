@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Crypt-Rijndael
-version:             1.03
+version:             1.04
 abstract:            ~
 license:             gpl
 generated_by:        ExtUtils::MakeMaker version 6.31
