@@ -1,17 +1,19 @@
-# $Id: Makefile.PL 2170 2007-02-22 21:31:05Z comdog $
+# $Id: Makefile.PL 2328 2007-10-14 20:17:00Z comdog $
 
 use ExtUtils::MakeMaker;
 
 eval "use Test::Manifest 1.14";
 
 WriteMakefile(
-	NAME           => "Crypt::Rijndael",
-    VERSION_FROM   => "Rijndael.pm",
-	LICENSE        => 'gpl',
-	AUTHOR         => 'Rafael R. Sevilla (maintained by brian d foy <bdfoy@cpan.org>)',
+	'NAME'           => "Crypt::Rijndael",
+    'VERSION_FROM'   => "Rijndael.pm",
+	'LICENSE'        => 'gpl',
+	'AUTHOR'         => 'Rafael R. Sevilla (maintained by brian d foy <bdfoy@cpan.org>)',
+	'ABSTRACT'       => 'Crypt::CBC compliant Rijndael encryption module',
 	
 	'PREREQ_PM'    => { 
 			'Test::More'         => '0',
+			'Test::Manifest'     => '1.14',
 			},
 
 
@@ -28,4 +30,4 @@ WriteMakefile(
 	           },
 
     OBJECT       => q[_rijndael$(OBJ_EXT) Rijndael$(OBJ_EXT)],
-); 
+	); 

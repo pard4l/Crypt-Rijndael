@@ -1,14 +1,15 @@
 --- #YAML:1.0
 name:                Crypt-Rijndael
-version:             1.04_02
-abstract:            ~
+version:             1.04_03
+abstract:            Crypt::CBC compliant Rijndael encryption module
 license:             gpl
 generated_by:        ExtUtils::MakeMaker version 6.32
 distribution_type:   module
 requires:     
+    Test::Manifest:                1.14
     Test::More:                    0
 meta-spec:
-    url:     http://module-build.sourceforge.net/META-spec-v1.2.html
-    version: 1.2
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3
 author:
     - Rafael R. Sevilla (maintained by brian d foy <bdfoy@cpan.org>)
