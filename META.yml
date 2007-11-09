@@ -1,9 +1,9 @@
 --- #YAML:1.0
 name:                Crypt-Rijndael
-version:             1.04_03
+version:             1.05
 abstract:            Crypt::CBC compliant Rijndael encryption module
 license:             gpl
-generated_by:        ExtUtils::MakeMaker version 6.32
+generated_by:        ExtUtils::MakeMaker version 6.36
 distribution_type:   module
 requires:     
     Test::Manifest:                1.14

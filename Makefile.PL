@@ -1,4 +1,6 @@
-# $Id: Makefile.PL 2328 2007-10-14 20:17:00Z comdog $
+# $Id: Makefile.PL 2367 2007-11-09 11:38:52Z comdog $
+
+require 5.006;
 
 use ExtUtils::MakeMaker;
 
