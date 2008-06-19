@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Crypt-Rijndael
-version:             1.06_01
+version:             1.06_02
 abstract:            Crypt::CBC compliant Rijndael encryption module
 license:             gpl
 author:              
