@@ -1,4 +1,4 @@
-# $Id: Makefile.PL 2408 2007-11-20 13:54:31Z comdog $
+# $Id$
 
 require 5.006;
 
