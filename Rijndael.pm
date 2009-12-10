@@ -34,7 +34,7 @@ no warnings;
 
 require DynaLoader;
 
-$VERSION = '1.07_02';
+$VERSION = '1.08';
 @ISA = qw/DynaLoader/;
 
 bootstrap Crypt::Rijndael $VERSION;
@@ -118,6 +118,12 @@ Original code by  Rafael R. Sevilla.
 The Rijndael Algorithm was developed by Vincent Rijmen and Joan Daemen,
 and has been selected as the US Government's Advanced Encryption Standard.
 
+=head1 SOURCE
+
+This code is in Github:
+
+	git://github.com/briandfoy/crypt-rijndael.git
+	
 =head1 LICENSE
 
 This software is licensed under the Lesser GNU Public License. See the included
